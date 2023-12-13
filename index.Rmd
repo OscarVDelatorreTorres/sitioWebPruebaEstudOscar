@@ -16,7 +16,7 @@ library("DT")
 setToken("5ddb4a3af696030f17864e708c36f50284b5625e38c164effb23fe590e487af9")
 ```
 
-![](umsnh100a.jpg){width=30%}
+![](umsnh100a.jpg){width=50%}
 
 # Introducción
 
