@@ -1,0 +1,19 @@
+---
+title: "Página"
+author: "Dr. Oscar V. De la Torre-Torres"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Se cargan las librerías necesarias para el análisis:
+library("siebanxicor")
+library("openxlsx")
+library("plotly")
+library("DT")
+# Configuro el token de Banxico:
+setToken("5ddb4a3af696030f17864e708c36f50284b5625e38c164effb23fe590e487af9")
+```
+
+![](umsnh100a.jpg){width=50%}
