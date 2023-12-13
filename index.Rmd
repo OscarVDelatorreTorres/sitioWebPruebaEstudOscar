@@ -96,5 +96,16 @@ figura1Plotly=layout(figura1Plotly,
 figura1Plotly
 ```
 
-Fin del documento...
+# Agregando ecuaciones en texto o flotantes
 
+
+A continuación se verá cómo insertar ecuaciones sobre el texto. Esto se logra con los signos de \$
+$y=a+bx$. Con un par de signos de \$, lo que haya entre ese par de signos de \$ Rmarkdown entenderá que es una ecuación en ínea o en texto.
+
+Si se ponen dos pares de signos de \$ abajo de un párrafo, Rmarkdown entenderá que es una ecuación "flotante" entre párrafos.
+
+$$y=ax^2+bx+c$$
+
+Como se puede apreciar, esto ex propio de una sintanxis de LaTex que es un lenguaje para preparar documentos y ecuaciones. Por ejemplo, si se pone entre sisgnos de pesos `\alpha` se puede escribir la letra griega alpha: $\alpha$
+
+Por tanto, para insertar ecuaciones, matrices, vectores, demostraciones, integrales, sumatorias, conocer un poco LaTex ayudará. [Esta liga](https://en.wikibooks.org/wiki/LaTeX/Mathematics) da una introducción para escribir símbolos, operadores y ecuaciones en este lenguaje.
