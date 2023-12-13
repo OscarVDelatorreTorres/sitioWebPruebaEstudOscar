@@ -16,6 +16,8 @@ library("DT")
 setToken("5ddb4a3af696030f17864e708c36f50284b5625e38c164effb23fe590e487af9")
 ```
 
+![](umsnh100a.jpg){width=30%}
+
 # Introducción
 
 En esta página web se hace un análisis muy sencillo del desempeño de las remuneraciones medias reales en los sectores manufacturero y comercial. Esto en comparación del índice nacional de precios al consumidor (INPC).
