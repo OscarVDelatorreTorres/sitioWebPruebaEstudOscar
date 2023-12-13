@@ -2,4 +2,4 @@
 
 En este repositorio pongo un ejemplo de una página web publicada por medio de GitHub, la cuál se vinculará con Rstuduo en nube o la computadora.
 
-Fin del documento..
+Fin del documento...
