@@ -1,0 +1,100 @@
+---
+title: "Pagina 2"
+author: "Dr. Oscar V. De la Torre-Torres"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Se cargan las librerías necesarias para el análisis:
+library("siebanxicor")
+library("openxlsx")
+library("plotly")
+library("DT")
+# Configuro el token de Banxico:
+setToken("5ddb4a3af696030f17864e708c36f50284b5625e38c164effb23fe590e487af9")
+```
+
+![](umsnh100a.jpg){width=50%}
+
+# Introducción
+
+En esta página web se hace un análisis muy sencillo del desempeño de las remuneraciones medias reales en los sectores manufacturero y comercial. Esto en comparación del índice nacional de precios al consumidor (INPC).
+
+Para esto, se extrajeron [de las bases del Banco de México](https://www.banxico.org.mx/SieAPIRest/service/v1/;jsessionid=ec4a1eae8f26e6371884f0ff2964), los siguientes índices:
+
+1. Remuneraciones medias reales del sector manufacturero con el Id Banxico SL11439.
+2. Remuneraciones medias reales del sector comercial con el Id Banxico SL11432.
+3. INPC con el Id Banxico SP1.
+
+Por cuestiones de disponbilidad en las bases de datos, se extrajo información desde enero de 2008 a septiembre de 2023. 
+
+# Desarrollo
+
+Al extraer los datos se llegó a la siguiente tabla:
+
+```{r tablaDatos, echo=FALSE}
+# Definimos las series que se extraerán del Banxico:
+series = c("SL11439","SL11432","SP1")
+
+# Se extrae la información histórica definiendo las series a extraer y la fecha tanto inicial como final de los datos.
+tablaDatos = getSeriesData(series, '2008-01-01', '2023-09-01')
+
+# Crea la tabla de datos para el análisis:
+datosEntrada=data.frame("Fecha"=tablaDatos$SP1$date,
+                        "INPC"=tablaDatos$SP1$value,
+                        "remunIndustrial"=tablaDatos$SL11439$value,
+                        "remunComercial"=tablaDatos$SL11432$value)
+
+# convertimos a base 100 el. de enero del 2008:
+datosEntrada$INPC=(datosEntrada$INPC/datosEntrada$INPC[1])*100
+
+datosEntrada$remunIndustrial=(datosEntrada$remunIndustrial/datosEntrada$remunIndustrial[1])*100
+
+datosEntrada$remunComercial=(datosEntrada$remunComercial/datosEntrada$remunComercial[1])*100
+
+datatable(datosEntrada,
+          colnames = c('Fecha', 'INPC general', 'Remuneraciones medias industriales', 'Remuneraciones medias comerciales'),
+          options = list(pageLength = 5))
+```
+
+El desempeño histórico de estos 3 índices se puede contrastar en la siguiente gráfica:
+
+```{r grafica1, echo=FALSE}
+figura1Plotly=plot_ly()
+# Agrego la línea del INPC:
+figura1Plotly=add_trace(figura1Plotly,
+                        x=~Fecha,
+                        y=~INPC,
+                        data=datosEntrada,
+                        name="INPC",
+                        type="scatter",
+                        mode="lines")
+# Agrego la línea de las remuneraciones indutriales:
+figura1Plotly=add_trace(figura1Plotly,
+                        x=~Fecha,
+                        y=~remunIndustrial,
+                        data=datosEntrada,
+                        name="Remuneraciones reales (industrial)",
+                        type="scatter",
+                        mode="lines")
+# agrego la línea de las remuneraciones comerciales:
+figura1Plotly=add_trace(figura1Plotly,
+                        x=~Fecha,
+                        y=~remunComercial,
+                        data=datosEntrada,
+                        name="Remuneraciones reales (comercial)",
+                        type="scatter",
+                        mode="lines")
+# Le pongo las florecitas y arreglos visuales:
+figura1Plotly=layout(figura1Plotly,
+  title="Remuneraciones reales en los sectores industrial y comercial v.s. el INPC",
+  xaxis=list(title="Tiempo (meses)"),
+  yaxis=list(title="Valor base 100 al 1 de enero del 2008")
+)
+figura1Plotly
+```
+
+Fin del documento...
+
