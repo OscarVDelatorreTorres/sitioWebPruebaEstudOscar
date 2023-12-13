@@ -61,7 +61,7 @@ datatable(datosEntrada,
 
 El desempeño histórico de estos 3 índices se puede contrastar en la siguiente gráfica:
 
-```{r grafica1}
+```{r grafica1, echo=FALSE}
 figura1Plotly=plot_ly()
 # Agrego la línea del INPC:
 figura1Plotly=add_trace(figura1Plotly,
